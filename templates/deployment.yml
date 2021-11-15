@@ -2,19 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: helm-nginx
+  namespace: {{ .Values.namespace | default "default" }}{{ required "An env-suffix is needed" .Values.env-suffix }}
   labels:
-    app: helm-nginx
+    app: helm-nginx-{{ required "An env-suffix is needed" .Values.env-suffix }}
 spec:
-  replicas: 3
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      app: helm-nginx
+      app: helm-nginx-{{ required "An env-suffix is needed" .Values.env-suffix }}
   template:
     metadata:
-      namespace: helm-nginx
+      namespace: {{ .Values.namespace | default "default" }}{{ required "An env-suffix is needed" .Values.env-suffix }}
       labels:
-        app: helm-nginx
+        app: helm-nginx-{{ required "An env-suffix is needed" .Values.env-suffix }}
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
     spec:
       containers:
       - name: nginx

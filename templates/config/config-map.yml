@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: helm-nginx
+  namespace: {{ .Values.namespace | default "default" }}{{ required "An env-suffix is needed" .Values.env-suffix }}
   name: helm-nginx-config
 data:
   index.html: |
     <html>
       <h1>It's Working!!!!</h1>
+      <h3>Welcome to the {{ required "An env-suffix is needed" .Values.env-suffix }} environment!</h3>
     </html>

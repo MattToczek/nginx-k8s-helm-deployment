@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: helm-nginx-ingress
-  namespace: helm-nginx
+  namespace: {{ .Values.namespace | default "default" }}{{ required "An env-suffix is needed" .Values.env-suffix }}
 spec:
   rules:
   - http:
