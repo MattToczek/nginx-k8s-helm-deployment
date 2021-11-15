@@ -1,0 +1,8 @@
+apiVersion: v2
+name: helm-nginx
+description: Nginx deployment on K8s using helm
+
+type: application
+version: 0.0.1
+appVersion: 0.0.1
+
